@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Vm\Stuff\CircleVm.cs" />
     <Compile Include="Vm\Story\GameVm.cs" />
+    <Compile Include="Vm\Stuff\LineVm.cs" />
     <Compile Include="Vm\Stuff\StuffVm.cs" />
     <Compile Include="Vm\Stuff\StuffVmCreator.cs" />
     <Page Include="View\MainWindow.xaml">

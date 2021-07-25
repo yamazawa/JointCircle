@@ -23,6 +23,8 @@ namespace AppModel.Implement.Singleton
             AddCircle(new Point(450, 50), 100, StuffState.Obstacle);
             AddCircle(new Point(450, 350), 100, StuffState.Obstacle);
             AddCircle(new Point(600, 150), 100, StuffState.NotJointed);
+            AddLine(new Point(150, 50), new Point(600, 50), StuffState.Obstacle);
+            AddLine(new Point(150, 350), new Point(600, 350), StuffState.Obstacle);
         }
 
         /// <summary>フレーム更新毎の更新処理</summary>
@@ -59,6 +61,17 @@ namespace AppModel.Implement.Singleton
             {
                 CenterPoint = point,
                 Radious = radious,
+                State = state
+            });
+        }
+
+        private void AddLine(Point point1, Point point2, StuffState state)
+        {
+            _idMaxCount += 1;
+            StuffList.Add(new Line(_idMaxCount)
+            {
+                Point1 = point1,
+                Point2 = point2,
                 State = state
             });
         }

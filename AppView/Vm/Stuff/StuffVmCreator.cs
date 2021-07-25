@@ -1,4 +1,5 @@
 ﻿using AppModel.Stuff.IF;
+using System.Diagnostics;
 
 namespace AppView.Vm.Stuff
 {
@@ -10,7 +11,10 @@ namespace AppView.Vm.Stuff
             {
                 case ICircle circle:
                     return new CircleVm(circle);
+                case ILine line:
+                    return new LineVm(line);
             }
+            Debug.Assert(false, "not defined.");
             return null;
         }
     }

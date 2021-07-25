@@ -65,13 +65,13 @@ namespace AppView.Vm
             {
                 case NotifyCollectionChangedAction.Add:
                     var creator = new StuffVmCreator();
-                    foreach (var item in e.NewItems.OfType<ICircle>())
+                    foreach (var item in e.NewItems.OfType<IStuff>())
                     {
                         StuffList.Add(creator.Create(item));
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (var item in e.OldItems.OfType<ICircle>())
+                    foreach (var item in e.OldItems.OfType<IStuff>())
                     {
                         var removeItem = StuffList.FirstOrDefault(i => i.Id == item.Id);
                         StuffList.Remove(removeItem);

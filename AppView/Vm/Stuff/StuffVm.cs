@@ -1,6 +1,7 @@
 ﻿using AppModel.Stuff.IF;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace AppView.Vm.Stuff
 {
@@ -17,6 +18,10 @@ namespace AppView.Vm.Stuff
 
         /// <summary>ID(モノに一意に振られるID)</summary>
         public int Id => Model.Id;
+
+        /// <summary>左上座標</summary>
+        /// <remarks>(CanvasのTopLeftを使用したい場合にOverrideすること)</remarks>
+        public virtual Point LeftUpPoint => new Point(0, 0);
 
         /// <summary>ステータス</summary>
         public StuffState State => Model.State;

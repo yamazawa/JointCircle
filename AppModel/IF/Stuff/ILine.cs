@@ -3,7 +3,7 @@
 namespace AppModel.Stuff.IF
 {
     /// <summary>直線(モノ)</summary>
-    interface ILine
+    public interface ILine : IStuff
     {
         /// <summary>点1</summary>
         Point Point1 { get; set; }

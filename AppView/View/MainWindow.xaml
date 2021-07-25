@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:AppView.Vm.Stuff"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid MouseDown="Grid_MouseDown" Background="White">
         <ItemsControl ItemsSource="{Binding StuffList}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
+            <ItemsControl.Resources>
+                <DataTemplate DataType="{x:Type vm:CircleVm}">
                     <Ellipse Width="{Binding Width}" Height="{Binding Height}" StrokeThickness="3">
                         <Ellipse.Style>
                             <Style TargetType="{x:Type Ellipse}">
@@ -34,7 +35,35 @@
                         </Ellipse.Style>
                     </Ellipse>
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type vm:LineVm}">
+                    <Line X1="{Binding Point1.X}" X2="{Binding Point2.X}"
+                          Y1="{Binding Point1.Y}" Y2="{Binding Point2.Y}"
+                          StrokeThickness="2">
+                        <Line.Style>
+                            <Style TargetType="{x:Type Line}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding State}" Value="Generating">
+                                        <Setter Property="Stroke" Value="Blue"/>
+                                        <Setter Property="Opacity" Value="0.5"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding State}" Value="Jointed">
+                                        <Setter Property="Stroke" Value="Blue"/>
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding State}" Value="NotJointed">
+                                        <Setter Property="Stroke" Value="Aqua"/>
+                                        <Setter Property="Opacity" Value="0.8"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding State}" Value="Obstacle">
+                                        <Setter Property="Stroke" Value="Red"/>
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Line.Style>
+                    </Line>
+                </DataTemplate>
+            </ItemsControl.Resources>
             <ItemsControl.ItemContainerStyle>
                 <Style>
                     <Setter Property="Canvas.Top" Value="{Binding Path=LeftUpPoint.Y}" />

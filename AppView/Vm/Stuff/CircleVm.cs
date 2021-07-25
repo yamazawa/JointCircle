@@ -26,7 +26,7 @@ namespace AppView.Vm.Stuff
         }
 
         /// <summary>左上座標</summary>
-        public Point LeftUpPoint => new Point(CenterPoint.X - Radious, CenterPoint.Y - Radious);
+        public override Point LeftUpPoint => new Point(CenterPoint.X - Radious, CenterPoint.Y - Radious);
 
         /// <summary>高さ</summary>
         public double Height => Radious * 2;
