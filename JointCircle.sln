@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppView", "JointCircle\AppView.csproj", "{239D797E-A72E-471E-AF07-6160694BC6C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppView", "AppView\AppView.csproj", "{239D797E-A72E-471E-AF07-6160694BC6C6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppModel", "AppModel\AppModel.csproj", "{97FF2747-42D0-4913-84CD-350E9CB99037}"
 EndProject
