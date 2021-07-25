@@ -1,39 +1,28 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using AppModel.Stuff.IF;
 
-namespace AppView.Vm
+namespace AppView.Vm.Stuff
 {
-    /// <summary>円のオブジェクトクラス</summary>
-    class CircleVm : INotifyPropertyChanged
+    /// <summary>円(モノ)</summary>
+    public class CircleVm : StuffVm
     {
-        private ICircle _model;
+        private new ICircle Model => (ICircle)base.Model;
 
-        public CircleVm(ICircle model)
+        public CircleVm(ICircle model) : base(model)
         {
-            _model = model;
-            _model.PropertyChanged += Model_PropertyChanged;
         }
-
-        /// <summary>ID(Stuffに一意に振られるID)</summary>
-        public int Id => _model.Id;
 
         /// <summary>中心点</summary>
         public Point CenterPoint
         {
-            get => _model.CenterPoint;
+            get => Model.CenterPoint;
         }
 
         /// <summary>半径</summary>
         public double Radious
         {
-            get => _model.Radious;
-        }
-
-        public StuffState State
-        {
-            get => _model.State;
+            get => Model.Radious;
         }
 
         /// <summary>左上座標</summary>
@@ -46,33 +35,22 @@ namespace AppView.Vm
         public double Width => Radious * 2;
 
         /// <summary>Model側の値が変更された時の動作</summary>
-        private void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected override void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            base.Model_PropertyChanged(sender, e);
             switch (e.PropertyName)
             {
-                case nameof(_model.Radious):
+                case nameof(Model.Radious):
                     RaisePropertyChanged(nameof(Radious));
                     RaisePropertyChanged(nameof(LeftUpPoint));
                     RaisePropertyChanged(nameof(Height));
                     RaisePropertyChanged(nameof(Width));
                     break;
-                case nameof(_model.CenterPoint):
+                case nameof(Model.CenterPoint):
                     RaisePropertyChanged(nameof(LeftUpPoint));
                     RaisePropertyChanged(nameof(CenterPoint));
                     break;
-                case nameof(_model.State):
-                    RaisePropertyChanged(nameof(State));
-                    break;
             }
         }
-
-        #region INotifyPropertyChanged実装
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
     }
 }

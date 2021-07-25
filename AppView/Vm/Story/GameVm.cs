@@ -9,12 +9,13 @@ using System.Collections.Specialized;
 using AppModel;
 using AppModel.Stuff.IF;
 using AppModel.IF.Singleton;
+using AppView.Vm.Stuff;
 
 namespace AppView.Vm
 {
     class GameVm
     {
-        public IList<CircleVm> StuffList { get; set; } = new ObservableCollection<CircleVm>();
+        public IList<StuffVm> StuffList { get; set; } = new ObservableCollection<StuffVm>();
 
         private IGame _model;
 
@@ -63,9 +64,10 @@ namespace AppView.Vm
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
+                    var creator = new StuffVmCreator();
                     foreach (var item in e.NewItems.OfType<ICircle>())
                     {
-                        StuffList.Add(new CircleVm(item));
+                        StuffList.Add(creator.Create(item));
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
