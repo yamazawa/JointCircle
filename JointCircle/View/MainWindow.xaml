@@ -1,0 +1,51 @@
+﻿<Window x:Class="AppView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid MouseDown="Grid_MouseDown" Background="White">
+        <ItemsControl ItemsSource="{Binding StuffList}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Width="{Binding Width}" Height="{Binding Height}" StrokeThickness="3">
+                        <Ellipse.Style>
+                            <Style TargetType="{x:Type Ellipse}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding State}" Value="Generating">
+                                        <Setter Property="Stroke" Value="Blue"/>
+                                        <Setter Property="Opacity" Value="0.5"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding State}" Value="Jointed">
+                                        <Setter Property="Stroke" Value="Blue"/>
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding State}" Value="NotJointed">
+                                        <Setter Property="Stroke" Value="Aqua"/>
+                                        <Setter Property="Opacity" Value="0.8"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding State}" Value="Obstacle">
+                                        <Setter Property="Stroke" Value="Red"/>
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Canvas.Top" Value="{Binding Path=LeftUpPoint.Y}" />
+                    <Setter Property="Canvas.Left" Value="{Binding Path=LeftUpPoint.X}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
+</Window>
