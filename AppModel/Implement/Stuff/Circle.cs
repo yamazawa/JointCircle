@@ -47,10 +47,7 @@ namespace AppModel.Implement.Stuff
         /// <summary>指定したモノに対する距離を取得</summary>
         public override double GetDistance(IStuff targetStuff)
         {
-            if (targetStuff is Circle targetCircle)
-                return DistanceCalc.GetDistance(this, targetCircle);
-            // それ以外の場合 TODO
-            return 0;
+            return DistanceCalc.GetDistance(this, targetStuff);
         }
 
         /// <summary>接続判定</summary>

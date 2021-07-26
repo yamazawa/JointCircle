@@ -66,9 +66,11 @@ namespace AppModel.Implement.Calc
             // 円の外側に点A点Bがある場合
             else if (Min(Abs(AO), Abs(BO)) >= r)
             {
-                var P = GetBelowPerpendicular(A, B, O);
+                var (P, isOnAB) = GetBelowPerpendicular(A, B, O);
                 var PO = P - O;
-                return Min(Abs(AO), Abs(BO), Abs(PO)) - r;
+                return isOnAB
+                       ? Abs(PO) - r
+                       : Math.Min(Abs(AO), Abs(BO)) - r;
             }
 
             // 上記以外(点A点Bの一方が円の外側、もう一方が円の内側の場合)
@@ -82,7 +84,8 @@ namespace AppModel.Implement.Calc
         }
 
         /// <summary>点Oから直線AB上に垂線を下した位置Pを求める</summary>
-        private static Point GetBelowPerpendicular(Point A, Point B, Point O)
+        /// <returns>(点Pの座標, 点Pが直線AB上にあるかどうか)</returns>
+        private static (Point, bool) GetBelowPerpendicular(Point A, Point B, Point O)
         {
             // AB⇒aベクトル、AO⇒bベクトルと定義する。
             // AP⇒t*aベクトルと定義してtの値を求める。(ここは数学で演算した。)
@@ -94,7 +97,8 @@ namespace AppModel.Implement.Calc
                     ? (b1 + b2) / (2 * a1)
                     : (a1 * b1 - a2 * b2) / (Pow2(a1) - Pow2(a2));
             // P⇒ A + AP ⇒ A + t*a
-            return new Point(A.X + t * a1, A.Y + t * a2);
+            var P = new Point(A.X + t * a1, A.Y + t * a2);
+            return (P, 0 <= t && t <= 1);
         }
 
         private static double Abs(Vector v)
