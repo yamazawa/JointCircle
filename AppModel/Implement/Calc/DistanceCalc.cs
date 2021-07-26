@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using AppModel.Stuff.IF;
 
@@ -50,6 +51,7 @@ namespace AppModel.Implement.Calc
 
         private static double GetDistanceOfCircleAndLine(ICircle circle, ILine line)
         {
+            // lineの直線を結ぶ点を点A、点B、circleの円の中心を点Oとする。
             var A = line.Point1;
             var B = line.Point2;
             var O = circle.CenterPoint;
@@ -58,30 +60,25 @@ namespace AppModel.Implement.Calc
             var BO = B - O;
 
             // 円の内側に点A点Bがある場合
-            if (Math.Max(Abs(AO), Abs(BO)) < r)
-                return r - Math.Max(Abs(AO), Abs(BO));
+            if (Max(Abs(AO), Abs(BO)) < r)
+                return r - Max(Abs(AO), Abs(BO));
 
             // 円の外側に点A点Bがある場合
-            else if (Math.Min(Abs(AO), Abs(BO)) >= r)
+            else if (Min(Abs(AO), Abs(BO)) >= r)
             {
                 var P = GetBelowPerpendicular(A, B, O);
                 var PO = P - O;
-                return Math.Min(Math.Min(Abs(AO), Abs(BO)), Abs(PO)) - r;
+                return Min(Abs(AO), Abs(BO), Abs(PO)) - r;
             }
 
             // 上記以外(点A点Bの一方が円の外側、もう一方が円の内側の場合)
-            return Math.Min(Abs(AO), Abs(BO)) - r;
+            return Min(Abs(AO), Abs(BO)) - r;
         }
 
         private static double GetDistanceOfLines(ILine line1, ILine line2)
         {
             // TODO
             return 0;
-        }
-
-        private static double Abs(Vector v)
-        {
-            return Math.Sqrt(Math.Pow(v.X, 2) + Math.Pow(v.Y, 2));
         }
 
         /// <summary>点Oから直線AB上に垂線を下した位置Pを求める</summary>
@@ -93,10 +90,31 @@ namespace AppModel.Implement.Calc
             var a2 = B.Y - A.Y;
             var b1 = O.X - A.X;
             var b2 = O.Y - A.Y;
-            var t = Math.Pow(b1, 2) == Math.Pow(b2, 2)
+            var t = Pow2(b1) == Pow2(b2)
                     ? (b1 + b2) / (2 * a1)
-                    : (a1 * b1 - a2 * b2) / (Math.Pow(a1, 2) - Math.Pow(a2, 2));
+                    : (a1 * b1 - a2 * b2) / (Pow2(a1) - Pow2(a2));
+            // P⇒ A + AP ⇒ A + t*a
             return new Point(A.X + t * a1, A.Y + t * a2);
+        }
+
+        private static double Abs(Vector v)
+        {
+            return Math.Sqrt(Math.Pow(v.X, 2) + Math.Pow(v.Y, 2));
+        }
+
+        private static double Max(params double[] v)
+        {
+            return v.Max(i => i);
+        }
+
+        private static double Min(params double[] v)
+        {
+            return v.Min(i => i);
+        }
+
+        private static double Pow2(double t)
+        {
+            return Math.Pow(t, 2);
         }
     }
 }
