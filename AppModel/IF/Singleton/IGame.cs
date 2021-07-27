@@ -7,6 +7,9 @@ namespace AppModel.IF.Singleton
     /// <summary>ゲーム処理</summary>
     public interface IGame
     {
+        /// <summary>ゲーム上の杭リスト</summary>
+        IPileCollection PileCollection { get; }
+
         /// <summary>ゲーム上に描画されるモノのリスト</summary>
         ObservableCollection<IStuff> StuffList { get; set; }
 

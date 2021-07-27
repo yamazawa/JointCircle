@@ -10,11 +10,14 @@ using AppModel;
 using AppModel.Stuff.IF;
 using AppModel.IF.Singleton;
 using AppView.Vm.Stuff;
+using AppView.Vm.Singleton;
 
 namespace AppView.Vm
 {
     class GameVm
     {
+        public PileVmCollection PileCollection { get; }
+
         public IList<StuffVm> StuffList { get; set; } = new ObservableCollection<StuffVm>();
 
         private IGame _model;
@@ -27,6 +30,7 @@ namespace AppView.Vm
 
             _model = SingletonAccessor.GetGame();
             _model.StuffList.CollectionChanged += CircleList_CollectionChanged;
+            PileCollection = new PileVmCollection(_model.PileCollection);
             _model.Initialize();
         }
 

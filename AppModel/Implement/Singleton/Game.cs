@@ -14,8 +14,15 @@ namespace AppModel.Implement.Singleton
         /// <summary>現在のモノのIDの最大値</summary>
         private int _idMaxCount = 0;
 
+        public IPileCollection PileCollection { get; }
+
         /// <summary>ゲーム上に描画されるモノのリスト</summary>
         public ObservableCollection<IStuff> StuffList { get; set; } = new ObservableCollection<IStuff>();
+
+        public Game()
+        {
+            PileCollection = new PileCollection();
+        }
 
         /// <summary>ゲームを初期化します</summary>
         public void Initialize()
@@ -77,13 +84,9 @@ namespace AppModel.Implement.Singleton
             });
         }
 
-        private IPile GetNewPile(Point point)
+        private IPile GetNewPile(Point position)
         {
-            _idMaxCount += 1;
-            return new Pile.Pile(_idMaxCount)
-            {
-                Position = point
-            };
+            return PileCollection.AddPile(position);
         }
     }
 }

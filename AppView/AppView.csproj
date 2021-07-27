@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Vm\Pile\PileVm.cs" />
+    <Compile Include="Vm\Singleton\PileVmCollection.cs" />
     <Compile Include="Vm\Stuff\CircleVm.cs" />
     <Compile Include="Vm\Singleton\GameVm.cs" />
     <Compile Include="Vm\Stuff\LineVm.cs" />

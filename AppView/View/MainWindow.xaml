@@ -3,13 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:AppView.Vm.Stuff"
+        xmlns:svm="clr-namespace:AppView.Vm.Stuff"
+        xmlns:pvm="clr-namespace:AppView.Vm.Pile"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid MouseDown="Grid_MouseDown" Background="White">
         <ItemsControl ItemsSource="{Binding StuffList}">
             <ItemsControl.Resources>
-                <DataTemplate DataType="{x:Type vm:CircleVm}">
+                <DataTemplate DataType="{x:Type svm:CircleVm}">
                     <Ellipse Width="{Binding Width}" Height="{Binding Height}" StrokeThickness="3">
                         <Ellipse.Style>
                             <Style TargetType="{x:Type Ellipse}">
@@ -35,7 +36,7 @@
                         </Ellipse.Style>
                     </Ellipse>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type vm:LineVm}">
+                <DataTemplate DataType="{x:Type svm:LineVm}">
                     <Line X1="{Binding Pile1.Position.X}" X2="{Binding Pile2.Position.X}"
                           Y1="{Binding Pile1.Position.Y}" Y2="{Binding Pile2.Position.Y}"
                           StrokeThickness="2">
@@ -68,6 +69,25 @@
                 <Style>
                     <Setter Property="Canvas.Top" Value="{Binding Path=LeftUpPoint.Y}" />
                     <Setter Property="Canvas.Left" Value="{Binding Path=LeftUpPoint.X}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <ItemsControl ItemsSource="{Binding PileCollection.PileList}">
+            <ItemsControl.Resources>
+                <DataTemplate DataType="{x:Type pvm:PileVm}">
+                    <Ellipse Width="10" Height="10" StrokeThickness="10"
+                             Stroke="Gray" Margin="-5 -5 0 0" Opacity="0.5"/>
+                </DataTemplate>
+            </ItemsControl.Resources>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Canvas.Left" Value="{Binding Path=Position.X}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Path=Position.Y}" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemsPanel>
