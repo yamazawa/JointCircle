@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using AppModel.Stuff.IF;
+using AppView.Vm.Pile;
 
 namespace AppView.Vm.Stuff
 {
@@ -11,22 +12,24 @@ namespace AppView.Vm.Stuff
 
         public CircleVm(ICircle model) : base(model)
         {
+            CenterPile = new PileVm(Model.CenterPile);
+            RadiousPile = new PileVm(Model.RadiousPile);
+
+            Model.CenterPile.PropertyChanged += CenterPile_PropertyChanged;
+            Model.RadiousPile.PropertyChanged += RadiousPile_PropertyChanged;
         }
 
-        /// <summary>中心点</summary>
-        public Point CenterPoint
-        {
-            get => Model.CenterPoint;
-        }
+        /// <summary>中心杭(円の中心)</summary>
+        public PileVm CenterPile { get; }
+
+        /// <summary>半径杭(中心杭と半径杭を繋ぐ直線が円の半径となる)</summary>
+        public PileVm RadiousPile { get; }
 
         /// <summary>半径</summary>
-        public double Radious
-        {
-            get => Model.Radious;
-        }
+        public double Radious => Model.Radious;
 
         /// <summary>左上座標</summary>
-        public override Point LeftUpPoint => new Point(CenterPoint.X - Radious, CenterPoint.Y - Radious);
+        public override Point LeftUpPoint => new Point(CenterPile.Position.X - Radious, CenterPile.Position.Y - Radious);
 
         /// <summary>高さ</summary>
         public double Height => Radious * 2;
@@ -34,21 +37,26 @@ namespace AppView.Vm.Stuff
         /// <summary>横幅</summary>
         public double Width => Radious * 2;
 
-        /// <summary>Model側の値が変更された時の動作</summary>
-        protected override void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void CenterPile_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            base.Model_PropertyChanged(sender, e);
             switch (e.PropertyName)
             {
-                case nameof(Model.Radious):
+                case nameof(Model.CenterPile.Position):
+                    RaisePropertyChanged(nameof(LeftUpPoint));
+                    RaisePropertyChanged(nameof(CenterPile));
+                    break;
+            }
+        }
+
+        private void RadiousPile_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(Model.RadiousPile.Position):
                     RaisePropertyChanged(nameof(Radious));
                     RaisePropertyChanged(nameof(LeftUpPoint));
                     RaisePropertyChanged(nameof(Height));
                     RaisePropertyChanged(nameof(Width));
-                    break;
-                case nameof(Model.CenterPoint):
-                    RaisePropertyChanged(nameof(LeftUpPoint));
-                    RaisePropertyChanged(nameof(CenterPoint));
                     break;
             }
         }

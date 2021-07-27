@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using AppModel.IF.Pile;
 using AppModel.Implement.Calc;
 using AppModel.Stuff.IF;
 
@@ -10,35 +11,25 @@ namespace AppModel.Implement.Stuff
     /// <summary>円(モノ)</summary>
     internal class Circle : Stuff, ICircle
     {
-        public Circle(int id) : base(id)
+        public Circle(int id, IPile centerPile, IPile radiousPile) : base(id)
         {
+            CenterPile = centerPile;
+            RadiousPile = radiousPile;
         }
 
         #region Implement ICircle
 
-        /// <summary>中心点</summary>
-        public Point CenterPoint
-        {
-            get => _centerPoint;
-            set
-            {
-                _centerPoint = value;
-                RaisePropertyChanged();
-            }
-        }
-        private Point _centerPoint;
+        /// <summary>中心杭(円の中心)</summary>
+        public IPile CenterPile { get; }
+
+        /// <summary>半径杭(中心杭と半径杭を繋ぐ直線が円の半径となる)</summary>
+        public IPile RadiousPile { get; }
 
         /// <summary>半径</summary>
         public double Radious
         {
-            get => _radious;
-            set
-            {
-                _radious = value;
-                RaisePropertyChanged();
-            }
+            get => DistanceCalc.GetDistance(CenterPile, RadiousPile);
         }
-        private double _radious;
 
         #endregion
 
@@ -62,7 +53,7 @@ namespace AppModel.Implement.Stuff
             // 生成中で接続した場合、ピッタリに接続させるよう半径を調整する
             if (isJointed && mostNearDistance > -2 && State == StuffState.Generating)
             {
-                Radious -= Math.Abs(mostNearDistance);
+                IncreaseRadiousSize(-Math.Abs(mostNearDistance));
             }
             return isJointed;
         }
@@ -82,7 +73,12 @@ namespace AppModel.Implement.Stuff
         public override void Generating()
         {
             if (State != StuffState.Generating) return;
-            Radious += 2;
+            IncreaseRadiousSize(2);
+        }
+
+        private void IncreaseRadiousSize(double delta)
+        {
+            RadiousPile.Position = new Point(RadiousPile.Position.X, RadiousPile.Position.Y + 2);
         }
 
         #endregion

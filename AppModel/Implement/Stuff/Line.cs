@@ -14,7 +14,7 @@ namespace AppModel.Implement.Stuff
             Pile2 = pile2;
         }
 
-        #region Implement ICircle
+        #region Implement ILine
 
         /// <summary>杭1</summary>
         public IPile Pile1 { get; }

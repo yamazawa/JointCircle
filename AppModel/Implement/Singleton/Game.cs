@@ -57,11 +57,11 @@ namespace AppModel.Implement.Singleton
         /// <summary>円を追加します。</summary>
         private void AddCircle(Point point, double radious, StuffState state)
         {
+            var centerPile = GetNewPile(point);
+            var radiousPile = GetNewPile(new Point(point.X, point.Y + radious));
             _idMaxCount += 1;
-            StuffList.Add(new Circle(_idMaxCount)
+            StuffList.Add(new Circle(_idMaxCount, centerPile, radiousPile)
             {
-                CenterPoint = point,
-                Radious = radious,
                 State = state
             });
         }

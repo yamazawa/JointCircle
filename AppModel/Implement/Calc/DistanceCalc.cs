@@ -2,12 +2,18 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using AppModel.IF.Pile;
 using AppModel.Stuff.IF;
 
 namespace AppModel.Implement.Calc
 {
     internal static class DistanceCalc
     {
+        public static double GetDistance(IPile pile1, IPile pile2)
+        {
+            return Abs(pile1.Position - pile2.Position);
+        }
+
         public static double GetDistance(IStuff stuff1, IStuff stuff2)
         {
             if (stuff2 is ICircle circle)
@@ -40,7 +46,7 @@ namespace AppModel.Implement.Calc
 
         private static double GetDistanceOfCircles(ICircle circle1, ICircle circle2)
         {
-            var centerDistance = Abs(circle1.CenterPoint - circle2.CenterPoint);
+            var centerDistance = GetDistance(circle1.CenterPile, circle2.CenterPile);
             var bigRadious = Math.Max(circle1.Radious, circle2.Radious);
             var smallRadious = Math.Min(circle1.Radious, circle2.Radious);
 
@@ -54,7 +60,7 @@ namespace AppModel.Implement.Calc
             // lineの直線を結ぶ点を点A、点B、circleの円の中心を点Oとする。
             var A = line.Pile1.Position;
             var B = line.Pile2.Position;
-            var O = circle.CenterPoint;
+            var O = circle.CenterPile.Position;
             var r = circle.Radious;
             var AO = A - O;
             var BO = B - O;
