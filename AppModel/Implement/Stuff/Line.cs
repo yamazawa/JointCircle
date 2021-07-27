@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using AppModel.IF.Pile;
 using AppModel.Stuff.IF;
 
 namespace AppModel.Implement.Stuff
@@ -7,35 +8,19 @@ namespace AppModel.Implement.Stuff
     /// <summary>直線(モノ)</summary>
     internal class Line : Stuff, ILine
     {
-        public Line(int id) : base(id)
+        public Line(int id, IPile pile1, IPile pile2) : base(id)
         {
+            Pile1 = pile1;
+            Pile2 = pile2;
         }
 
         #region Implement ICircle
 
-        /// <summary>点1</summary>
-        public Point Point1
-        {
-            get => _point1;
-            set
-            {
-                _point1 = value;
-                RaisePropertyChanged();
-            }
-        }
-        private Point _point1;
+        /// <summary>杭1</summary>
+        public IPile Pile1 { get; }
 
-        /// <summary>点2</summary>
-        public Point Point2
-        {
-            get => _point2;
-            set
-            {
-                _point2 = value;
-                RaisePropertyChanged();
-            }
-        }
-        private Point _point2;
+        /// <summary>杭2</summary>
+        public IPile Pile2 { get; }
 
         #endregion
 

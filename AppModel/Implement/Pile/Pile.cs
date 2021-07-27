@@ -8,17 +8,13 @@ namespace AppModel.Implement.Pile
     /// <summary>杭</summary>
     internal class Pile : IPile
     {
-        /// <summary>杭のID</summary>
-        public int Id
+        public Pile(int id)
         {
-            get => _id;
-            set
-            {
-                _id = value;
-                RaisePropertyChanged();
-            }
+            Id = id;
         }
-        private int _id;
+
+        /// <summary>杭のID</summary>
+        public int Id { get; }
 
         /// <summary>座標</summary>
         public Point Position

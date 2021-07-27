@@ -1,6 +1,5 @@
 ﻿using AppModel.Stuff.IF;
-using System.ComponentModel;
-using System.Windows;
+using AppView.Vm.Pile;
 
 namespace AppView.Vm.Stuff
 {
@@ -10,27 +9,14 @@ namespace AppView.Vm.Stuff
 
         public LineVm(ILine model) : base(model)
         {
+            Pile1 = new PileVm(Model.Pile1);
+            Pile2 = new PileVm(Model.Pile2);
         }
 
-        /// <summary>点1</summary>
-        public Point Point1 => Model.Point1;
+        /// <summary>杭1</summary>
+        public PileVm Pile1 { get; }
 
-        /// <summary>点2</summary>
-        public Point Point2 => Model.Point2;
-
-        /// <summary>Model側の値が変更された時の動作</summary>
-        protected override void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            base.Model_PropertyChanged(sender, e);
-            switch (e.PropertyName)
-            {
-                case nameof(Model.Point1):
-                    RaisePropertyChanged(nameof(Point1));
-                    break;
-                case nameof(Model.Point2):
-                    RaisePropertyChanged(nameof(Point2));
-                    break;
-            }
-        }
+        /// <summary>杭2</summary>
+        public PileVm Pile2 { get; }
     }
 }

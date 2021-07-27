@@ -4,6 +4,7 @@ using System.Windows;
 using AppModel.IF.Singleton;
 using AppModel.Implement.Stuff;
 using AppModel.Stuff.IF;
+using AppModel.IF.Pile;
 
 namespace AppModel.Implement.Singleton
 {
@@ -67,13 +68,22 @@ namespace AppModel.Implement.Singleton
 
         private void AddLine(Point point1, Point point2, StuffState state)
         {
+            var pile1 = GetNewPile(point1);
+            var pile2 = GetNewPile(point2);
             _idMaxCount += 1;
-            StuffList.Add(new Line(_idMaxCount)
+            StuffList.Add(new Line(_idMaxCount, pile1, pile2)
             {
-                Point1 = point1,
-                Point2 = point2,
                 State = state
             });
+        }
+
+        private IPile GetNewPile(Point point)
+        {
+            _idMaxCount += 1;
+            return new Pile.Pile(_idMaxCount)
+            {
+                Position = point
+            };
         }
     }
 }

@@ -7,7 +7,7 @@ namespace AppModel.IF.Pile
     public interface IPile : INotifyPropertyChanged
     {
         /// <summary>杭のID</summary>
-        int Id { get; set; }
+        int Id { get; }
 
         /// <summary>座標</summary>
         Point Position { get; set; }

@@ -36,8 +36,8 @@
                     </Ellipse>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:LineVm}">
-                    <Line X1="{Binding Point1.X}" X2="{Binding Point2.X}"
-                          Y1="{Binding Point1.Y}" Y2="{Binding Point2.Y}"
+                    <Line X1="{Binding Pile1.Position.X}" X2="{Binding Pile2.Position.X}"
+                          Y1="{Binding Pile1.Position.Y}" Y2="{Binding Pile2.Position.Y}"
                           StrokeThickness="2">
                         <Line.Style>
                             <Style TargetType="{x:Type Line}">

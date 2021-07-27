@@ -52,8 +52,8 @@ namespace AppModel.Implement.Calc
         private static double GetDistanceOfCircleAndLine(ICircle circle, ILine line)
         {
             // lineの直線を結ぶ点を点A、点B、circleの円の中心を点Oとする。
-            var A = line.Point1;
-            var B = line.Point2;
+            var A = line.Pile1.Position;
+            var B = line.Pile2.Position;
             var O = circle.CenterPoint;
             var r = circle.Radious;
             var AO = A - O;
