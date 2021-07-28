@@ -78,7 +78,7 @@ namespace AppModel.Implement.Stuff
 
         private void IncreaseRadiousSize(double delta)
         {
-            RadiousPile.Position = new Point(RadiousPile.Position.X, RadiousPile.Position.Y + 2);
+            RadiousPile.Position = new Point(RadiousPile.Position.X, RadiousPile.Position.Y + delta);
         }
 
         #endregion
