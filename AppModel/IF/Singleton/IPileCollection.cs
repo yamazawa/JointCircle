@@ -10,7 +10,7 @@ namespace AppModel.IF.Singleton
         ObservableCollection<IPile> PileList { get; }
 
         /// <summary>杭をリストに追加します</summary>
-        IPile AddPile(Point position);
+        IPile AddPile(Point position, PileState state);
 
         /// <summary>杭を削除します</summary>
         void RemovePile(IPile pile);

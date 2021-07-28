@@ -52,6 +52,8 @@ namespace AppView.Vm.Stuff
         {
             switch (e.PropertyName)
             {
+                case nameof(Model.State):
+                    
                 case nameof(Model.RadiousPile.Position):
                     RaisePropertyChanged(nameof(Radious));
                     RaisePropertyChanged(nameof(LeftUpPoint));

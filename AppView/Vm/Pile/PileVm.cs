@@ -28,6 +28,11 @@ namespace AppView.Vm.Pile
             get => Model.Position;
         }
 
+        public PileState State
+        {
+            get => Model.State;
+        }
+
         /// <summary>Model側の値が変更された時の動作</summary>
         protected virtual void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -35,6 +40,9 @@ namespace AppView.Vm.Pile
             {
                 case nameof(Model.Position):
                     RaisePropertyChanged(nameof(Position));
+                    break;
+                case nameof(Model.State):
+                    RaisePropertyChanged(nameof(State));
                     break;
             }
         }

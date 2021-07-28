@@ -5,6 +5,7 @@ using AppModel.IF.Singleton;
 using AppModel.Implement.Stuff;
 using AppModel.Stuff.IF;
 using AppModel.IF.Pile;
+using System.Collections.Generic;
 
 namespace AppModel.Implement.Singleton
 {
@@ -64,8 +65,8 @@ namespace AppModel.Implement.Singleton
         /// <summary>円を追加します。</summary>
         private void AddCircle(Point point, double radious, StuffState state)
         {
-            var centerPile = GetNewPile(point);
-            var radiousPile = GetNewPile(new Point(point.X, point.Y + radious));
+            var centerPile = GetNewPile(point, StateDictionary[state]);
+            var radiousPile = GetNewPile(new Point(point.X, point.Y + radious), PileState.Hide);
             _idMaxCount += 1;
             StuffList.Add(new Circle(_idMaxCount, centerPile, radiousPile)
             {
@@ -75,18 +76,28 @@ namespace AppModel.Implement.Singleton
 
         private void AddLine(Point point1, Point point2, StuffState state)
         {
-            var pile1 = GetNewPile(point1);
-            var pile2 = GetNewPile(point2);
+            var pile1 = GetNewPile(point1, StateDictionary[state]);
+            var pile2 = GetNewPile(point2, StateDictionary[state]);
             _idMaxCount += 1;
             StuffList.Add(new Line(_idMaxCount, pile1, pile2)
             {
                 State = state
             });
+            
         }
 
-        private IPile GetNewPile(Point position)
+        private IPile GetNewPile(Point position, PileState state)
         {
-            return PileCollection.AddPile(position);
+            return PileCollection.AddPile(position, state);
         }
+
+        public ReadOnlyDictionary<StuffState, PileState> StateDictionary = new ReadOnlyDictionary<StuffState, PileState>(
+            new Dictionary<StuffState, PileState>()
+            {
+                { StuffState.Generating, PileState.Generating },
+                { StuffState.Obstacle, PileState.Obstacle },
+                { StuffState.NotJointed, PileState.NotJointed },
+                { StuffState.Jointed, PileState.Jointed },
+            });
     }
 }

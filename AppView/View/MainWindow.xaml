@@ -80,8 +80,40 @@
         <ItemsControl ItemsSource="{Binding PileCollection.PileList}">
             <ItemsControl.Resources>
                 <DataTemplate DataType="{x:Type pvm:PileVm}">
-                    <Ellipse Width="10" Height="10" StrokeThickness="10"
-                             Stroke="Gray" Margin="-5 -5 0 0" Opacity="0.5"/>
+                    <Ellipse Width="8" Height="8" StrokeThickness="8"
+                             Margin="-4 -4 0 0">
+                        <Ellipse.Style>
+                            <Style TargetType="{x:Type Ellipse}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding State}" Value="Shadow">
+                                        <Setter Property="Stroke" Value="Gray"/>
+                                        <Setter Property="Opacity" Value="0.3"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding State}" Value="Hide">
+                                        <Setter Property="Stroke" Value="Black"/>
+                                        <Setter Property="Opacity" Value="0"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding State}" Value="Generating">
+                                        <Setter Property="Stroke" Value="Blue"/>
+                                        <Setter Property="Opacity" Value="0.5"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding State}" Value="Jointed">
+                                        <Setter Property="Stroke" Value="Blue"/>
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding State}" Value="NotJointed">
+                                        <Setter Property="Stroke" Value="Aqua"/>
+                                        <Setter Property="Opacity" Value="0.8"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding State}" Value="Obstacle">
+                                        <Setter Property="Stroke" Value="Red"/>
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                        
+                    </Ellipse>
                 </DataTemplate>
             </ItemsControl.Resources>
             <ItemsControl.ItemContainerStyle>

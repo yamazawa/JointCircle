@@ -17,11 +17,12 @@ namespace AppModel.Implement.Singleton
         }
 
         /// <summary>杭をリストに追加します</summary>
-        public IPile AddPile(Point position)
+        public IPile AddPile(Point position, PileState state)
         {
             var newPile = new Pile.Pile(GetNewId())
             {
-                Position = position
+                Position = position,
+                State = state
             };
             PileList.Add(newPile);
             return newPile;

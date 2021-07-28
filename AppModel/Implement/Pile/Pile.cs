@@ -28,6 +28,17 @@ namespace AppModel.Implement.Pile
         }
         private Point _position;
 
+        public PileState State
+        {
+            get => _state;
+            set
+            {
+                _state = value;
+                RaisePropertyChanged();
+            }
+        }
+        private PileState _state;
+
         #region INotifyPropertyChanged実装
         public event PropertyChangedEventHandler PropertyChanged;
 
