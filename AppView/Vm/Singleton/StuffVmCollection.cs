@@ -1,34 +1,36 @@
-﻿using AppModel.IF.Pile;
-using AppModel.IF.Singleton;
-using AppView.Vm.Pile;
+﻿
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using AppModel.IF.Singleton;
+using AppModel.Stuff.IF;
+using AppView.Vm.Stuff;
 
 namespace AppView.Vm.Singleton
 {
-    class PileVmCollection
+    class StuffVmCollection
     {
-        public IList<PileVm> List { get; } = new ObservableCollection<PileVm>();
+        public IList<StuffVm> List { get; } = new ObservableCollection<StuffVm>();
 
-        public PileVmCollection(IPileCollection model)
+        public StuffVmCollection(IStuffCollection model)
         {
-            model.List.CollectionChanged += PileList_CollectionChanged;
+            model.List.CollectionChanged += List_CollectionChanged;
         }
 
-        private void PileList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void List_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (var item in e.NewItems.OfType<IPile>())
+                    var creator = new StuffVmCreator();
+                    foreach (var item in e.NewItems.OfType<IStuff>())
                     {
-                        List.Add(new PileVm(item));
+                        List.Add(creator.Create(item));
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (var item in e.OldItems.OfType<IPile>())
+                    foreach (var item in e.OldItems.OfType<IStuff>())
                     {
                         var removeItem = List.FirstOrDefault(i => i.Id == item.Id);
                         List.Remove(removeItem);

@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid MouseDown="Grid_MouseDown" Background="White">
-        <ItemsControl ItemsSource="{Binding StuffList}">
+        <ItemsControl ItemsSource="{Binding StuffCollection.List}">
             <ItemsControl.Resources>
                 <DataTemplate DataType="{x:Type svm:CircleVm}">
                     <Ellipse Width="{Binding Width}" Height="{Binding Height}" StrokeThickness="3">
@@ -77,7 +77,7 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-        <ItemsControl ItemsSource="{Binding PileCollection.PileList}">
+        <ItemsControl ItemsSource="{Binding PileCollection.List}">
             <ItemsControl.Resources>
                 <DataTemplate DataType="{x:Type pvm:PileVm}">
                     <Ellipse Width="8" Height="8" StrokeThickness="8"
