@@ -8,9 +8,10 @@ namespace AppModel.Implement.Stuff
     /// <summary>モノ(抽象クラス)</summary>
     internal abstract class Stuff : IStuff
     {
-        protected Stuff(int id)
+        protected Stuff(int id, StuffState state)
         {
             Id = id;
+            State = state;
         }
 
         /// <summary>モノID</summary>
@@ -26,7 +27,7 @@ namespace AppModel.Implement.Stuff
                 RaisePropertyChanged();
             }
         }
-        private StuffState _state = StuffState.Generating;
+        private StuffState _state;
 
         /// <summary>指定したモノに対する距離を取得</summary>
         public abstract double GetDistance(IStuff targetStuff);

@@ -7,7 +7,7 @@ namespace AppModel.Implement.Stuff
     /// <summary>直線(モノ)</summary>
     internal class Line : Stuff, ILine
     {
-        public Line(int id, IPile pile1, IPile pile2) : base(id)
+        public Line(int id, StuffState state, IPile pile1, IPile pile2) : base(id, state)
         {
             Pile1 = pile1;
             Pile2 = pile2;

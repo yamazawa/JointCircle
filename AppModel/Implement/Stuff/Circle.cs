@@ -11,7 +11,7 @@ namespace AppModel.Implement.Stuff
     /// <summary>円(モノ)</summary>
     internal class Circle : Stuff, ICircle
     {
-        public Circle(int id, IPile centerPile, IPile radiusPile) : base(id)
+        public Circle(int id, StuffState state, IPile centerPile, IPile radiusPile) : base(id, state)
         {
             CenterPile = centerPile;
             RadiusPile = radiusPile;

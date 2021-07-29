@@ -24,11 +24,18 @@ namespace AppModel.Implement.Singleton
         public void AddCircle(Point point, double radius, StuffState state)
         {
             var centerPile = GetNewPile(point, StateDictionary[state]);
-            var radiousPile = GetNewPile(new Point(point.X, point.Y + radius), PileState.Hide);
-            List.Add(new Circle(GetNewId(), centerPile, radiousPile)
+            var radiusPile = GetNewPile(new Point(point.X, point.Y + radius), PileState.Hide);
+            var newCircle = new Circle(GetNewId(), state, centerPile, radiusPile);
+            newCircle.PropertyChanged += (s, e) =>
             {
-                State = state
-            });
+                switch (e.PropertyName)
+                {
+                    case nameof(newCircle.State):
+                        centerPile.State = StateDictionary[newCircle.State];
+                        break;
+                }
+            };
+            List.Add(newCircle);
         }
 
         /// <summary>直線を追加します</summary>
@@ -36,10 +43,18 @@ namespace AppModel.Implement.Singleton
         {
             var pile1 = GetNewPile(point1, StateDictionary[state]);
             var pile2 = GetNewPile(point2, StateDictionary[state]);
-            List.Add(new Line(GetNewId(), pile1, pile2)
+            var newLine = new Line(GetNewId(), state, pile1, pile2);
+            newLine.PropertyChanged += (s, e) =>
             {
-                State = state
-            });
+                switch (e.PropertyName)
+                {
+                    case nameof(newLine.State):
+                        pile1.State = StateDictionary[newLine.State];
+                        pile2.State = StateDictionary[newLine.State];
+                        break;
+                }
+            };
+            List.Add(newLine);
         }
 
         private readonly IPileCollection _pileCollection;
