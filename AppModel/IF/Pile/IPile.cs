@@ -12,6 +12,7 @@ namespace AppModel.IF.Pile
         /// <summary>座標</summary>
         Point Position { get; set; }
 
+        /// <summary>杭の状態</summary>
         PileState State { get; set; }
     }
 
@@ -21,7 +22,7 @@ namespace AppModel.IF.Pile
         Generating,
         /// <summary>未接続</summary>
         NotJointed,
-        /// <summary接続した状態</summary>
+        /// <summary>接続</summary>
         Jointed,
         /// <summary>非表示</summary>
         Hide,

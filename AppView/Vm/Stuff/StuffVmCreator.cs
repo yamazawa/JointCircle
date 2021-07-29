@@ -1,5 +1,5 @@
-﻿using AppModel.Stuff.IF;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using AppModel.IF.Stuff;
 
 namespace AppView.Vm.Stuff
 {

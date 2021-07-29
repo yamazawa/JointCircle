@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using AppModel.Implement.Stuff;
-using AppModel.Stuff.IF;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using AppModel.IF.Pile;
 using AppModel.IF.Singleton;
+using AppModel.IF.Stuff;
 
 namespace AppModel.Implement.Singleton
 {
@@ -21,10 +21,10 @@ namespace AppModel.Implement.Singleton
         }
 
         /// <summary>円を追加します。</summary>
-        public void AddCircle(Point point, double radious, StuffState state)
+        public void AddCircle(Point point, double radius, StuffState state)
         {
             var centerPile = GetNewPile(point, StateDictionary[state]);
-            var radiousPile = GetNewPile(new Point(point.X, point.Y + radious), PileState.Hide);
+            var radiousPile = GetNewPile(new Point(point.X, point.Y + radius), PileState.Hide);
             List.Add(new Circle(GetNewId(), centerPile, radiousPile)
             {
                 State = state

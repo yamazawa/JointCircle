@@ -4,6 +4,7 @@ using System.Windows;
 
 namespace AppModel.IF.Singleton
 {
+    /// <summary>杭のコレクション</summary>
     public interface IPileCollection
     {
         /// <summary>ゲーム上の杭のリスト</summary>

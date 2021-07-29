@@ -1,7 +1,6 @@
 ﻿using AppModel.IF.Pile;
-using System.Windows;
 
-namespace AppModel.Stuff.IF
+namespace AppModel.IF.Stuff
 {
     /// <summary>円(モノ)</summary>
     public interface ICircle : IStuff
@@ -10,9 +9,9 @@ namespace AppModel.Stuff.IF
         IPile CenterPile { get; }
 
         /// <summary>半径杭(中心杭と半径杭を繋ぐ直線が円の半径となる)</summary>
-        IPile RadiousPile { get; }
+        IPile RadiusPile { get; }
 
         /// <summary>半径</summary>
-        double Radious { get; }
+        double Radius { get; }
     }
 }

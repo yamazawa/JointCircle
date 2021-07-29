@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace AppModel.Stuff.IF
+namespace AppModel.IF.Stuff
 {
     /// <summary>モノ</summary>
     public interface IStuff : INotifyPropertyChanged

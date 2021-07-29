@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Windows;
 using AppModel.IF.Pile;
-using AppModel.Stuff.IF;
+using AppModel.IF.Stuff;
 
 namespace AppModel.Implement.Stuff
 {

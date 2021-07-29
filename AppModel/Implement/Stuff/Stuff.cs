@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using AppModel.Stuff.IF;
+using AppModel.IF.Stuff;
 
 namespace AppModel.Implement.Stuff
 {
-    /// <summary>モノ</summary>
+    /// <summary>モノ(抽象クラス)</summary>
     internal abstract class Stuff : IStuff
     {
-        public Stuff(int id)
+        protected Stuff(int id)
         {
             Id = id;
         }

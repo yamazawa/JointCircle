@@ -1,7 +1,7 @@
-﻿using AppModel.Stuff.IF;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using AppModel.IF.Stuff;
 
 namespace AppView.Vm.Stuff
 {

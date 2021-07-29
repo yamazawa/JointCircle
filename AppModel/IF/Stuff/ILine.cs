@@ -1,7 +1,6 @@
 ﻿using AppModel.IF.Pile;
-using System.Windows;
 
-namespace AppModel.Stuff.IF
+namespace AppModel.IF.Stuff
 {
     /// <summary>直線(モノ)</summary>
     public interface ILine : IStuff

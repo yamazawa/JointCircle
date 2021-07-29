@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using AppModel.IF.Pile;
+using AppModel.IF.Stuff;
 using AppModel.Implement.Calc;
-using AppModel.Stuff.IF;
 
 namespace AppModel.Implement.Stuff
 {
     /// <summary>円(モノ)</summary>
     internal class Circle : Stuff, ICircle
     {
-        public Circle(int id, IPile centerPile, IPile radiousPile) : base(id)
+        public Circle(int id, IPile centerPile, IPile radiusPile) : base(id)
         {
             CenterPile = centerPile;
-            RadiousPile = radiousPile;
+            RadiusPile = radiusPile;
         }
 
         #region Implement ICircle
@@ -23,12 +23,12 @@ namespace AppModel.Implement.Stuff
         public IPile CenterPile { get; }
 
         /// <summary>半径杭(中心杭と半径杭を繋ぐ直線が円の半径となる)</summary>
-        public IPile RadiousPile { get; }
+        public IPile RadiusPile { get; }
 
         /// <summary>半径</summary>
-        public double Radious
+        public double Radius
         {
-            get => DistanceCalc.GetDistance(CenterPile, RadiousPile);
+            get => DistanceCalc.GetDistance(CenterPile, RadiusPile);
         }
 
         #endregion
@@ -44,16 +44,16 @@ namespace AppModel.Implement.Stuff
         /// <summary>接続判定</summary>
         public override bool Joint(IList<IStuff> stuffList)
         {
-            var jointList = stuffList.Where(i => i != this && i.State == StuffState.Jointed);
-            if (jointList.Count() == 0) return false;
+            var jointList = stuffList.Where(i => i != this && i.State == StuffState.Jointed).ToList();
+            if (!jointList.Any()) return false;
 
-            var mostNearDistance = jointList.Min(i => GetDistance(i));
+            var mostNearDistance = jointList.Min(GetDistance);
             var isJointed = mostNearDistance <= 0;
 
             // 生成中で接続した場合、ピッタリに接続させるよう半径を調整する
             if (isJointed && mostNearDistance > -2 && State == StuffState.Generating)
             {
-                IncreaseRadiousSize(-Math.Abs(mostNearDistance));
+                IncreaseRadiusSize(-Math.Abs(mostNearDistance));
             }
             return isJointed;
         }
@@ -63,22 +63,22 @@ namespace AppModel.Implement.Stuff
         {
             if (State == StuffState.NotJointed) return false;
 
-            var obstacleList = stuffList.Where(i => i != this && i.State == StuffState.Obstacle);
-            if (obstacleList.Count() == 0) return false;
+            var obstacleList = stuffList.Where(i => i != this && i.State == StuffState.Obstacle).ToList();
+            if (!obstacleList.Any()) return false;
 
-            return obstacleList.Min(i => GetDistance(i)) < 0;
+            return obstacleList.Min(GetDistance) < 0;
         }
 
         /// <summary>生成時の動作</summary>
         public override void Generating()
         {
             if (State != StuffState.Generating) return;
-            IncreaseRadiousSize(2);
+            IncreaseRadiusSize(2);
         }
 
-        private void IncreaseRadiousSize(double delta)
+        private void IncreaseRadiusSize(double delta)
         {
-            RadiousPile.Position = new Point(RadiousPile.Position.X, RadiousPile.Position.Y + delta);
+            RadiusPile.Position = new Point(RadiusPile.Position.X, RadiusPile.Position.Y + delta);
         }
 
         #endregion

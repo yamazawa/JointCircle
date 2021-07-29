@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using AppModel.IF.Pile;
-using AppModel.Stuff.IF;
+using AppModel.IF.Stuff;
 
 namespace AppModel.Implement.Calc
 {
@@ -20,7 +21,7 @@ namespace AppModel.Implement.Calc
                 return GetDistance(stuff1, circle);
             if (stuff2 is ILine line)
                 return GetDistance(stuff1, line);
-            Debug.Assert(false, "Not defined Clac.");
+            Debug.Assert(false, "Not defined Calc.");
             return 0;
         }
 
@@ -30,7 +31,7 @@ namespace AppModel.Implement.Calc
                 return GetDistanceOfCircles(c, circle);
             if (stuff is ILine l)
                 return GetDistanceOfCircleAndLine(circle, l);
-            Debug.Assert(false, "Not defined Clac.");
+            Debug.Assert(false, "Not defined Calc.");
             return 0;
         }
 
@@ -40,28 +41,29 @@ namespace AppModel.Implement.Calc
                 return GetDistanceOfCircleAndLine(c, line);
             if (stuff is ILine l)
                 return GetDistanceOfLines(l, line);
-            Debug.Assert(false, "Not defined Clac.");
+            Debug.Assert(false, "Not defined Calc.");
             return 0;
         }
 
         private static double GetDistanceOfCircles(ICircle circle1, ICircle circle2)
         {
             var centerDistance = GetDistance(circle1.CenterPile, circle2.CenterPile);
-            var bigRadious = Math.Max(circle1.Radious, circle2.Radious);
-            var smallRadious = Math.Min(circle1.Radious, circle2.Radious);
+            var bigRadius = Math.Max(circle1.Radius, circle2.Radius);
+            var smallRadius = Math.Min(circle1.Radius, circle2.Radius);
 
-            return centerDistance - bigRadious > 0
-                   ? centerDistance - (bigRadious + smallRadious)
-                   : bigRadious - (centerDistance + smallRadious);
+            return centerDistance - bigRadius > 0
+                   ? centerDistance - (bigRadius + smallRadius)
+                   : bigRadius - (centerDistance + smallRadius);
         }
 
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
         private static double GetDistanceOfCircleAndLine(ICircle circle, ILine line)
         {
             // lineの直線を結ぶ点を点A、点B、circleの円の中心を点Oとする。
             var A = line.Pile1.Position;
             var B = line.Pile2.Position;
             var O = circle.CenterPile.Position;
-            var r = circle.Radious;
+            var r = circle.Radius;
             var AO = A - O;
             var BO = B - O;
 
@@ -83,6 +85,8 @@ namespace AppModel.Implement.Calc
             return Min(Abs(AO), Abs(BO)) - r;
         }
 
+        
+        [SuppressMessage("ReSharper", "UnusedParameter.Local")]
         private static double GetDistanceOfLines(ILine line1, ILine line2)
         {
             // TODO
@@ -91,6 +95,7 @@ namespace AppModel.Implement.Calc
 
         /// <summary>点Oから直線AB上に垂線を下した位置Pを求める</summary>
         /// <returns>(点Pの座標, 点Pが直線AB上にあるかどうか)</returns>
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
         private static (Point, bool) GetBelowPerpendicular(Point A, Point B, Point O)
         {
             // AB⇒aベクトル、AO⇒bベクトルと定義する。
@@ -99,7 +104,7 @@ namespace AppModel.Implement.Calc
             var a2 = B.Y - A.Y;
             var b1 = O.X - A.X;
             var b2 = O.Y - A.Y;
-            var t = Pow2(b1) == Pow2(b2)
+            var t = Math.Abs(Pow2(b1) - Pow2(b2)) < double.Epsilon
                     ? (b1 + b2) / (2 * a1)
                     : (a1 * b1 - a2 * b2) / (Pow2(a1) - Pow2(a2));
             // P⇒ A + AP ⇒ A + t*a

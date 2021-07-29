@@ -1,6 +1,6 @@
-﻿using AppModel.Stuff.IF;
-using AppView.Vm.Pile;
+﻿using AppView.Vm.Pile;
 using System.ComponentModel;
+using AppModel.IF.Stuff;
 
 namespace AppView.Vm.Stuff
 {

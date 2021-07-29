@@ -1,10 +1,9 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using AppModel.IF.Singleton;
-using AppModel.Stuff.IF;
+using AppModel.IF.Stuff;
 using AppView.Vm.Stuff;
 
 namespace AppView.Vm.Singleton

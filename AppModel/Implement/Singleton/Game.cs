@@ -1,19 +1,17 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using AppModel.IF.Singleton;
-using AppModel.Implement.Stuff;
-using AppModel.Stuff.IF;
-using AppModel.IF.Pile;
-using System.Collections.Generic;
+using AppModel.IF.Stuff;
 
 namespace AppModel.Implement.Singleton
 {
     /// <summary>ゲーム処理</summary>
     internal class Game : IGame
     {
+        /// <summary>杭のコレクション</summary>
         public IPileCollection PileCollection { get; }
 
+        /// <summary>モノのコレクション</summary>
         public IStuffCollection StuffCollection { get; }
 
         public Game()
