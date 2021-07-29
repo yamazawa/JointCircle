@@ -1,15 +1,14 @@
-﻿using AppView.Vm;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using AppView.Vm.Singleton;
 
-namespace AppView
+namespace AppView.View
 {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        private GameVm _gameVm;
+        private readonly GameVm _gameVm;
 
         public MainWindow()
         {

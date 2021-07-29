@@ -10,14 +10,11 @@ namespace AppView.Vm.Singleton
 {
     class PileVmCollection
     {
-        private IPileCollection _model;
-
         public IList<PileVm> PileList { get; set; } = new ObservableCollection<PileVm>();
 
         public PileVmCollection(IPileCollection model)
         {
-            _model = model;
-            _model.PileList.CollectionChanged += PileList_CollectionChanged;
+            model.List.CollectionChanged += PileList_CollectionChanged;
         }
 
         private void PileList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

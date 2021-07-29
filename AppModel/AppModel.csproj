@@ -45,10 +45,12 @@
     <Compile Include="IF\Pile\IPile.cs" />
     <Compile Include="IF\Singleton\IGame.cs" />
     <Compile Include="IF\Singleton\IPileCollection.cs" />
+    <Compile Include="IF\Singleton\IStuffCollection.cs" />
     <Compile Include="Implement\Calc\DistanceCalc.cs" />
     <Compile Include="IF\Stuff\ILine.cs" />
     <Compile Include="Implement\Pile\Pile.cs" />
     <Compile Include="Implement\Singleton\PileCollection.cs" />
+    <Compile Include="Implement\Singleton\StuffCollection.cs" />
     <Compile Include="SingletonAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implement\Singleton\Game.cs" />

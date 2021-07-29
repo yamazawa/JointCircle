@@ -1,6 +1,4 @@
-﻿using AppModel.Stuff.IF;
-using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 
 namespace AppModel.IF.Singleton
 {
@@ -10,8 +8,8 @@ namespace AppModel.IF.Singleton
         /// <summary>ゲーム上の杭リスト</summary>
         IPileCollection PileCollection { get; }
 
-        /// <summary>ゲーム上に描画されるモノのリスト</summary>
-        ObservableCollection<IStuff> StuffList { get; set; }
+        /// <summary>ゲーム上のモノリスト</summary>
+        IStuffCollection StuffCollection { get; }
 
         /// <summary>ゲームを初期化します</summary>
         void Initialize();

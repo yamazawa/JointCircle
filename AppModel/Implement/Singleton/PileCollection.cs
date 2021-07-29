@@ -9,11 +9,11 @@ namespace AppModel.Implement.Singleton
     internal class PileCollection : IPileCollection
     {
         /// <summary>ゲーム上の杭のリスト</summary>
-        public ObservableCollection<IPile> PileList { get; }
+        public ObservableCollection<IPile> List { get; }
 
         public PileCollection()
         {
-            PileList = new ObservableCollection<IPile>();
+            List = new ObservableCollection<IPile>();
         }
 
         /// <summary>杭をリストに追加します</summary>
@@ -24,22 +24,22 @@ namespace AppModel.Implement.Singleton
                 Position = position,
                 State = state
             };
-            PileList.Add(newPile);
+            List.Add(newPile);
             return newPile;
         }
 
         /// <summary>杭を削除します</summary>
         public void RemovePile(IPile pile)
         {
-            PileList.Remove(pile);
+            List.Remove(pile);
         }
 
         /// <summary>新しいIDを生成します。</summary>
         private int GetNewId()
         {
-            return PileList.Count == 0
+            return List.Count == 0
                    ? 0
-                   : PileList.Max(i => i.Id) + 1;
+                   : List.Max(i => i.Id) + 1;
         }
     }
 }
