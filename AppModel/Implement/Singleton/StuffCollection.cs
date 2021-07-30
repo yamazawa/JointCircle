@@ -79,6 +79,7 @@ namespace AppModel.Implement.Singleton
                 { StuffState.Obstacle, PileState.Obstacle },
                 { StuffState.NotJointed, PileState.NotJointed },
                 { StuffState.Jointed, PileState.Jointed },
+                { StuffState.FailedShadow, PileState.FailedShadow }
             });
     }
 }

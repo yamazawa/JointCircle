@@ -26,9 +26,9 @@ namespace AppModel.IF.Pile
         Jointed,
         /// <summary>非表示</summary>
         Hide,
-        /// <summary>影状態</summary>
-        Shadow,
         /// <summary>障害物</summary>
         Obstacle,
+        /// <summary>失敗（跡が薄く残っている状態）</summary>
+        FailedShadow
     }
 }

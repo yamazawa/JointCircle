@@ -34,6 +34,8 @@ namespace AppModel.IF.Stuff
         /// <summary>接続した状態</summary>
         Jointed,
         /// <summary>障害物</summary>
-        Obstacle
+        Obstacle,
+        /// <summary>失敗（跡が薄く残っている状態）</summary>
+        FailedShadow
     }
 }

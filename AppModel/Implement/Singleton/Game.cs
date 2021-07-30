@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Windows;
+using AppModel.IF.Pile;
 using AppModel.IF.Singleton;
 using AppModel.IF.Stuff;
 
@@ -8,11 +9,15 @@ namespace AppModel.Implement.Singleton
     /// <summary>ゲーム処理</summary>
     internal class Game : IGame
     {
+
         /// <summary>杭のコレクション</summary>
         public IPileCollection PileCollection { get; }
 
         /// <summary>モノのコレクション</summary>
         public IStuffCollection StuffCollection { get; }
+
+        /// <summary>ドラッグ中の杭</summary>
+        private IPile OnDragPile;
 
         public Game()
         {
@@ -42,7 +47,7 @@ namespace AppModel.Implement.Singleton
 
                 if (circle.Obstacle(StuffCollection.List))
                 {
-                    StuffCollection.List.Remove(circle);
+                    circle.State = StuffState.FailedShadow;
                 }
                 else
                 {
@@ -51,11 +56,35 @@ namespace AppModel.Implement.Singleton
             }
         }
 
+        private Point _tapedPosition;
+
+        private Point _beforeTapPilePosition;
+
         /// <summary>指定座標をタップした場合の動作</summary>
-        public void TapAction(Point point)
+        public void MouseDownAction(Point position)
         {
-            StuffCollection.AddCircle(point, 10, StuffState.Generating);
+            var touchedPile = PileCollection.GetTouchedPile(position);
+            if (touchedPile != null)
+            {
+                OnDragPile = touchedPile;
+                _tapedPosition = position;
+                _beforeTapPilePosition = touchedPile.Position;
+                return;
+            }
+            StuffCollection.AddCircle(position, 10, StuffState.Generating);
         }
 
+        public void MouseMoveAction(Point position)
+        {
+            if (OnDragPile == null) return;
+            var x = _beforeTapPilePosition.X + position.X - _tapedPosition.X;
+            var y = _beforeTapPilePosition.Y + position.Y - _tapedPosition.Y;
+            OnDragPile.Position = new Point(x, y);
+        }
+
+        public void MouseUpAction(Point position)
+        {
+            OnDragPile = null;
+        }
     }
 }

@@ -17,7 +17,13 @@ namespace AppModel.IF.Singleton
         /// <summary>フレーム更新毎の更新処理</summary>
         void FrameUpdate();
 
-        /// <summary>指定座標をタップした場合の動作</summary>
-        void TapAction(Point point);
+        /// <summary>指定座標にMouseDownした場合の動作</summary>
+        void MouseDownAction(Point point);
+
+        /// <summary>指定座標にMouseMoveした場合の動作</summary>
+        void MouseMoveAction(Point point);
+
+        /// <summary>指定座標にMouseUpした場合の動作</summary>
+        void MouseUpAction(Point point);
     }
 }

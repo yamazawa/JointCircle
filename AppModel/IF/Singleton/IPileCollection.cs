@@ -15,5 +15,8 @@ namespace AppModel.IF.Singleton
 
         /// <summary>杭を削除します</summary>
         void RemovePile(IPile pile);
+
+        /// <summary>指定された座標に杭がある場合、その杭を返します。無い場合はNULLを返します</summary>
+        IPile GetTouchedPile(Point position);
     }
 }

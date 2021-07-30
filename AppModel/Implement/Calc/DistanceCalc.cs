@@ -10,6 +10,11 @@ namespace AppModel.Implement.Calc
 {
     internal static class DistanceCalc
     {
+        public static double GetDistance(Point p1, Point p2)
+        {
+            return Abs(p1 - p2);
+        }
+
         public static double GetDistance(IPile pile1, IPile pile2)
         {
             return Abs(pile1.Position - pile2.Position);

@@ -20,7 +20,17 @@ namespace AppView.View
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            _gameVm.TapAction(e.GetPosition(this));
+            _gameVm.MouseDownAction(e.GetPosition(this));
+        }
+
+        private void Grid_OnMouseMove(object sender, MouseEventArgs e)
+        {
+            _gameVm.MouseMoveAction(e.GetPosition(this));
+        }
+
+        private void Grid_OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            _gameVm.MouseUpAction(e.GetPosition(this));
         }
     }
 }

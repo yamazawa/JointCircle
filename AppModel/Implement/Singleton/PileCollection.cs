@@ -3,6 +3,7 @@ using AppModel.IF.Singleton;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using AppModel.Implement.Calc;
 
 namespace AppModel.Implement.Singleton
 {
@@ -32,6 +33,17 @@ namespace AppModel.Implement.Singleton
         public void RemovePile(IPile pile)
         {
             List.Remove(pile);
+        }
+
+        /// <summary>指定された座標に杭がある場合、その杭を返します。無い場合はNULLを返します</summary>
+        public IPile GetTouchedPile(Point position)
+        {
+            foreach (var pile in List)
+            {
+                if (DistanceCalc.GetDistance(pile.Position, position) < 7)
+                    return pile;
+            }
+            return null;
         }
 
         /// <summary>新しいIDを生成します。</summary>

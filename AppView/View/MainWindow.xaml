@@ -7,7 +7,10 @@
         xmlns:pvm="clr-namespace:AppView.Vm.Pile"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid MouseDown="Grid_MouseDown" Background="White">
+    <Grid MouseDown="Grid_MouseDown"
+          MouseMove="Grid_OnMouseMove"
+          MouseUp="Grid_OnMouseUp"
+          Background="White">
         <ItemsControl ItemsSource="{Binding StuffCollection.List}">
             <ItemsControl.Resources>
                 <DataTemplate DataType="{x:Type svm:CircleVm}">
@@ -15,6 +18,10 @@
                         <Ellipse.Style>
                             <Style TargetType="{x:Type Ellipse}">
                                 <Style.Triggers>
+                                    <DataTrigger Binding="{Binding State}" Value="FailedShadow">
+                                        <Setter Property="Stroke" Value="Gray"/>
+                                        <Setter Property="Opacity" Value="0.15"/>
+                                    </DataTrigger>
                                     <DataTrigger Binding="{Binding State}" Value="Generating">
                                         <Setter Property="Stroke" Value="Blue"/>
                                         <Setter Property="Opacity" Value="0.5"/>
@@ -85,9 +92,9 @@
                         <Ellipse.Style>
                             <Style TargetType="{x:Type Ellipse}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding State}" Value="Shadow">
+                                    <DataTrigger Binding="{Binding State}" Value="FailedShadow">
                                         <Setter Property="Stroke" Value="Gray"/>
-                                        <Setter Property="Opacity" Value="0.3"/>
+                                        <Setter Property="Opacity" Value="0.15"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding State}" Value="Hide">
                                         <Setter Property="Stroke" Value="Black"/>

@@ -37,9 +37,19 @@ namespace AppView.Vm.Singleton
         }
 
         /// <summary>指定座標をタップした場合の動作</summary>
-        public void TapAction(Point point)
+        public void MouseDownAction(Point position)
         {
-            _model.TapAction(point);
+            _model.MouseDownAction(position);
+        }
+
+        public void MouseMoveAction(Point position)
+        {
+            _model.MouseMoveAction(position);
+        }
+
+        public void MouseUpAction(Point position)
+        {
+            _model.MouseUpAction(position);
         }
 
 
